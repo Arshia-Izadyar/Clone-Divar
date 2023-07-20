@@ -19,11 +19,11 @@ class Province(models.Model):
 class City(models.Model):
     name = models.CharField(max_length=50, verbose_name=_('name'))
     slug = models.SlugField(max_length=50, allow_unicode='True', unique=True, blank=True, verbose_name=_('slug'))
-    state = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE, verbose_name=_('state'))
+    province = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE, verbose_name=_('state'))
 
 
     def __str__(self):
-        return f"City:{self.name} province: {self.state.name}"
+        return f"City:{self.name} province: {self.province}"
 
     class Meta:
         verbose_name = _('city')
