@@ -14,4 +14,15 @@ Advertisements detail
 
     <img src="{{ advertisement.image.url }}">
 
+    {% if advertisement.user == request.user %}
+    <br>    
+    <a href="{% url 'adv-update' advertisement.pk %}" >
+        <button>Update post</button>
+    </a>
+    <br>
+    <a href="{% url 'adv-delete' advertisement.pk %}" >
+        <button>Delete post</button>
+    </a>
+    {% endif %}
+
 {% endblock %}

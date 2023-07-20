@@ -45,8 +45,6 @@ class AdvertisementUpdateView(UpdateView):
             return reverse_lazy('adv-list', kwargs={'city': selected_city})
         else:
             return redirect('/')
-    
-
 
 class AdvertisementDeleteView(DeleteView):
     model = Advertisement
@@ -65,12 +63,11 @@ class AdvertisementDeleteView(DeleteView):
 
 
     def dispatch(self, request, *args, **kwargs):
-        # Check if the user is the owner of the advertisement
+
         obj = self.get_object()
         if obj.user == self.request.user:
             return super().dispatch(request, *args, **kwargs)
         else:
-            # Redirect to some other page or show an error message
             return redirect('/')
         
     def get_context_data(self, **kwargs):
@@ -83,7 +80,6 @@ class AdvertisementDeleteView(DeleteView):
     
 
 class AdvertisementDetailView(DetailView):
-
     model = Advertisement
     template_name = 'advertisement/advertisement_detail.html'
     context_object_name = 'advertisement'
@@ -116,29 +112,10 @@ class AdvertisementCityListView(FilterView):
         response = super().render_to_response(context, **response_kwargs)
         selected_city = self.kwargs.get('city') or self.request.COOKIES.get('selected_city')
         if selected_city:
-            # Set the city value to a cookie with an expiration time (e.g., 1 year)
-            response.set_cookie('selected_city', selected_city, max_age=7000)  
+            response.set_cookie('selected_city', selected_city, max_age=9000)  
         return response
     
         
-
-# class AdvertisementCityCategoryListView(View):
-#     def get(self, request, *args, **kwargs):
-#         city = self.kwargs.get('city')
-#         category = self.kwargs.get('category')
-#         queryset = Advertisement.objects.filter(location__city__slug=city, category__slug=category)
-#         categories = Category.objects.all()
-#         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-#         return render(
-#             request, 'advertisement/advertisement_list.html',
-#             context={'filter': filter, 'categories': categories, 'city': city}
-#         )
-
-#     def post(self, request, *args, **kwargs):
-#         form = self.request.AdvertisementFilter(self.request.GET)
-#         if form.is_valid():
-#             return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
-
 class AdvertisementCityCategoryListView(AdvertisementCityListView):
     template_name = 'advertisement/advertisement_category_list.html'
     
