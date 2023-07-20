@@ -1,0 +1,17 @@
+{% block title %}
+package 
+{% endblock title %}
+
+{% block body %}
+
+{% for package in packages %}
+    <h4>Package : {{ package.title }}</h4>
+    <p>Price: {{package.price}}</p>
+    <p>description: {{package.description}} </p>
+    <p>days: {{package.days}} </p>
+{% endfor %}
+
+
+    
+
+{% endblock %}
