@@ -1,0 +1,32 @@
+{% extends "Base.html" %}
+{% block title %}
+User Profile
+{% endblock title %}
+
+{% block body %}
+<h1>User Profile</h1>
+<h2> Hello {{ user.username }}! </h2>
+<p> date joined : {{ user.date_joined }} </p>
+{% comment %} <p> Password <a href="{% url 'account:account_change_password' %}">Change</a></p>
+<p> Password <a href="{% url 'account_reset_password' %}">Reset</a> </p> {% endcomment %}
+<br>
+<h3>contact info </h3>
+<p>E-mail: <strong>{{ user.email }}</strong></p>
+<p>phone: <strong>{{ user.phone_number }}</strong></p>
+<br>
+
+
+<h3> Book mark</h3>
+{% for bookmark in bookmarks %}
+<li>
+    {{bookmark.advertisement}}
+</li>
+{% endfor %}
+
+<h2>Advertisements</h2>
+{% for adv in advertisements %}
+
+<p> <strong>{{ adv.title}} :</strong> </p> 
+
+{% endfor %}
+{% endblock body %}
