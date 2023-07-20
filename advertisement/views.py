@@ -6,9 +6,11 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
 from django_filters.views import FilterView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from .models import Advertisement, Category
-from .forms import AdvertisementForm
+from .forms import AdvertisementForm, BookMarkForm
 
 
 class AdvertisementPostView(FormView):
@@ -33,7 +35,7 @@ class AdvertisementUpdateView(UpdateView):
     
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
-        if obj.user == self.request.user:
+        if Advertisement.is_belong_user(self.request.user, obj.pk):
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404
@@ -65,7 +67,7 @@ class AdvertisementDeleteView(DeleteView):
     def dispatch(self, request, *args, **kwargs):
 
         obj = self.get_object()
-        if obj.user == self.request.user:
+        if Advertisement.is_belong_user(self.request.user, obj.pk):
             return super().dispatch(request, *args, **kwargs)
         else:
             return redirect('/')
@@ -127,3 +129,19 @@ class AdvertisementCityCategoryListView(AdvertisementCityListView):
 
     
 
+class AddToBookMark(DetailView):
+    model = Advertisement
+    
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        form = BookMarkForm(request.POST)
+        obj = self.get_object()
+        if form.is_valid(): 
+            book_mark = form.save(commit=False)
+            book_mark.user = request.user
+            book_mark.advertisement = obj
+            book_mark.save()
+        return HttpResponseRedirect(obj.get_absolute_url())

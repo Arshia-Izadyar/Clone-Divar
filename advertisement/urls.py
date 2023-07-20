@@ -1,5 +1,6 @@
 from django.urls import path, re_path
-from .views import AdvertisementCityListView, AdvertisementDetailView, AdvertisementCityCategoryListView, AdvertisementPostView, AdvertisementUpdateView, AdvertisementDeleteView
+from .views import AdvertisementCityListView, AdvertisementDetailView, AdvertisementCityCategoryListView,\
+    AdvertisementPostView, AdvertisementUpdateView, AdvertisementDeleteView, AddToBookMark
 
 
 urlpatterns = [
@@ -9,6 +10,7 @@ urlpatterns = [
     re_path(r"^add/$", AdvertisementPostView.as_view(), name="adv-add"),
     path("update/<int:pk>/", AdvertisementUpdateView.as_view(), name="adv-update"),
     path("delete/<int:pk>/", AdvertisementDeleteView.as_view(), name="adv-delete"),
+    path("bookmark/<int:pk>/", AddToBookMark.as_view(), name="adv-bookmark"),
     
     
 ]

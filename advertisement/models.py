@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 
@@ -21,7 +22,7 @@ class Category(models.Model):
 class Advertisement(models.Model):
     title = models.CharField(max_length=150, verbose_name=_("Title"))
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'), related_name='advertisements',)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'), related_name='advertisements')
     description = models.TextField(blank=True, null=True, verbose_name=_('description'))
     price = models.PositiveIntegerField(default=0, verbose_name=_('Price'))
     location = models.ForeignKey(
@@ -44,3 +45,16 @@ class Advertisement(models.Model):
     def is_belong_user(cls, user, advertisement_pk):
         advertisement = cls.objects.get(pk=advertisement_pk)
         return user == advertisement.user
+    
+    def get_absolute_url(self):
+        return reverse("adv-detail", kwargs={"pk": self.pk})
+    
+class BookMark(models.Model):
+    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, verbose_name=_('advertisement'), related_name='bookmarks')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'), related_name='bookmarks')
+    
+    def __str__(self):
+        return self.user.username
+    
+    class Meta:
+        unique_together = ["advertisement", "user"]
