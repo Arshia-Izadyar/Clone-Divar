@@ -1,0 +1,16 @@
+{% block title %}
+package 
+{% endblock title %}
+
+{% block body %}
+
+    <h3>Title : {{ advertisement.title }} </h3>
+    <h4>Package : {{ package.title }}</h4>
+    <p>Price: {{package.price}}</p>
+    <p>description: {{package.description}} </p>
+    <p>days: {{package.days}} </p>
+
+    
+    {% comment %} <a href="{% url 'purchase-create' package.pk advertisement.pk %}">Buy</a> {% endcomment %}
+
+{% endblock %}

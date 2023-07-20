@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "accounts.apps.AccountConfig",
     "advertisement.apps.AdvertisementConfig",
     "locations.apps.LocationsConfig",
+    "package.apps.PackageConfig",
+
 ]
 
 MIDDLEWARE = [
