@@ -1,0 +1,13 @@
+
+{% extends 'Base.html' %}
+
+{% block body %}
+  <h2>Confirm Deletion</h2>
+  {{selected_city}}
+  <p>Are you sure you want to delete the advertisement "{{ object.title }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="btn btn-danger">
+    {% comment %} <a href="{% url 'adv-list' %}" class="btn btn-secondary">Cancel</a> {% endcomment %}
+  </form>
+{% endblock %}
