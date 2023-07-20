@@ -1,10 +1,24 @@
-from django.views.generic import FormView, DetailView
+from django.views.generic import FormView, DetailView, UpdateView
 from django.db.models import Q
 from django_filters import FilterSet
+from django.http import HttpResponseRedirect
 from django_filters.views import FilterView
+from django.urls import reverse_lazy
 
 from .models import Advertisement, Category
+from .forms import AdvertisementForm
 
+class AdvertisementPostView(FormView):
+    form_class = AdvertisementForm
+    template_name = 'advertisement/advertisement_post.html'
+    success_url = "Profile"
+    
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user = self.request.user
+        obj.save()
+        return HttpResponseRedirect(reverse_lazy(self.success_url))
+    
 
 class AdvertisementDetailView(DetailView):
 

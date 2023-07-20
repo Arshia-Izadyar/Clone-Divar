@@ -1,0 +1,18 @@
+{% extends 'Base.html' %}
+{% block title %}
+post Advertisement
+{% endblock title %}
+
+{% block body %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="file" name="files" multiple />
+        <br> <br>
+        <input type="submit" value="Post Advertisement">
+
+    </form>
+{% endblock %}
+
+</body>
+</html>

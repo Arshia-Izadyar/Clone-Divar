@@ -14,7 +14,7 @@ class LocationList(ListView):
         city = self.request.GET.get('city')
         if city:
             # Set the city in a cookie with a one-week expiration time
-            response = HttpResponseRedirect('/advertisements/')  # Redirect to the advertisements page
+            response = HttpResponseRedirect('/adv/')  # Redirect to the advertisements page
             response.set_cookie('selected_city', city, max_age=604800)  # One week in seconds
             return response
         return super().get(request, *args, **kwargs)
