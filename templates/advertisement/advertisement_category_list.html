@@ -7,6 +7,7 @@ Advertismentlist
 {% block body %}
 
 <h1>Advertisment list</h1>
+        <h3> category list</h3>
         {% for cat in category %}
 
         <ul>
@@ -40,7 +41,7 @@ Advertismentlist
         {{ filter.form.as_p }}
     <input type="submit">
     </form>
-    <p></p>
+    <br>    
 
     <!-- Advertisements -->
     {% for adv in advertisements %}

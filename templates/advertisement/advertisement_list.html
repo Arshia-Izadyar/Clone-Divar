@@ -5,6 +5,9 @@ Advvertismentlist
 {% endblock title %}
 
 {% block body %}
+
+<h1>Advertisment list</h1>
+        <h3> category list</h3>
         {% for cat in category %}
 
         <ul>
@@ -34,13 +37,13 @@ Advvertismentlist
     {% endfor %}
 
 
-    <!-- Search bar -->
-    <p style="font-weight: bold">Search</p>
+    {% comment %} <p style="font-weight: bold">Search</p> {% endcomment %}
+    <h3> Search</h3>
     <form method="get">
         {{ filter.form.as_p }}
     <input type="submit">
     </form>
-    <p></p>
+    <br>
 
     <!-- Advertisements -->
     {% for adv in advertisements %}
