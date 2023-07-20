@@ -1,7 +1,8 @@
+from typing import Any
 from django.views.generic import FormView, DetailView, UpdateView
 from django.db.models import Q
 from django_filters import FilterSet
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django_filters.views import FilterView
 from django.urls import reverse_lazy
 
@@ -18,6 +19,26 @@ class AdvertisementPostView(FormView):
         obj.user = self.request.user
         obj.save()
         return HttpResponseRedirect(reverse_lazy(self.success_url))
+    
+
+class AdvertisementUpdateView(UpdateView):
+    form_class = AdvertisementForm
+    template_name   = 'advertisement/advertisement_update.html'
+    success_url = '/'
+    model = Advertisement
+    
+    def get_queryset(self):
+        return Advertisement.objects.filter(pk=self.kwargs.get('pk'))
+    
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user == self.request.user:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404
+
+
+    
     
 
 class AdvertisementDetailView(DetailView):
