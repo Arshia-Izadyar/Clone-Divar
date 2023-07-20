@@ -8,21 +8,33 @@ User = get_user_model()
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name=_("Title"))
     slug = models.SlugField(max_length=150)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name="children")
-    
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name="children", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.title}"
+
+    class Meta:
+        verbose_name = _('category')
+        verbose_name_plural = _("categories")
+        
+        
 class Advertisement(models.Model):
     title = models.CharField(max_length=150, verbose_name=_("Title"))
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'), related_name='advertisements',)
-    description = models.TextField(blank=True, verbose_name=_('description'))
-    price = models.PositiveIntegerField(default=0, verbose_name=_('description'))
+    description = models.TextField(blank=True, null=True, verbose_name=_('description'))
+    price = models.PositiveIntegerField(default=0, verbose_name=_('Price'))
     location = models.ForeignKey(
         Location, on_delete=models.CASCADE, related_name='advertisements', verbose_name=_('location')
     )
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="advertisements", verbose_name=_('category')
     )
-    image = models.ImageField(upload_to="images/", verbose_name=_("Image"))
+    image = models.ImageField(upload_to="images/", verbose_name=_("Image"), null=True, blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    urgent = models.BooleanField(default=False)
 
     def __str__(self):
             return f"{self.title} > {self.location.city.name}"

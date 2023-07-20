@@ -1,0 +1,56 @@
+{% extends 'Base.html' %}
+
+{% block title %}
+Advvertismentlist
+{% endblock title %}
+
+{% block body %}
+        {% for cat in category %}
+
+        <ul>
+
+            {% if cat.parent is None %}
+
+                {% if city is None %}
+                    <li><a href="#"> {{ cat.title }} </a></li>
+                {% else %}
+                    <li><a href="#"> {{ cat.title }} </a></li>
+                {% endif %}
+
+                {% for child in cat.children.all %}
+                    <ul>
+                        {% if city is None %}
+                            <li><a href="#"> {{ child.title }} </a></li>
+                        {% else %}
+                            <li><a href="#"> {{ child.title }} </a></li>
+                        {% endif %}
+                    </ul>
+                {% endfor %}
+
+            {% endif %}
+
+        </ul>
+    {% endfor %}
+
+
+    <!-- Search bar -->
+    <p style="font-weight: bold">Search</p>
+    <form method="get">
+        {{ filter.form.as_p }}
+    <input type="submit">
+    </form>
+    <p></p>
+
+    <!-- Advertisements -->
+    {% for adv in advertisements %}
+
+        <div>
+            <h3>{{ adv.title }}</h3>
+            {% comment %} <h3><a href="{{ adv.get_absolute_url }}">{{ adv.title }}</a></h3> {% endcomment %}
+        </div>
+
+        <img src="{{ adv.image.url }}">
+    {% endfor %}
+
+{%endblock%}
+
