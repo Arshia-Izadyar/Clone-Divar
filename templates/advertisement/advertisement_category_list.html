@@ -1,10 +1,12 @@
 {% extends 'Base.html' %}
 
 {% block title %}
-Advvertismentlist
+Advertismentlist
 {% endblock title %}
 
 {% block body %}
+
+<h1>Advertisment list</h1>
         {% for cat in category %}
 
         <ul>
@@ -20,11 +22,9 @@ Advvertismentlist
 
                 {% for child in cat.children.all %}
                     <ul>
-                        {% if city is None %}
-                            <li><a href="#"> {{ child.title }} </a></li>
-                        {% else %}
-                            <li><a href="#"> {{ child.title }} </a></li>
-                        {% endif %}
+                        
+                        <li><a href="{% url 'adv-category' selected_city child.slug %}"> {{ child.title }} </a></li>
+                        
                     </ul>
                 {% endfor %}
 
@@ -48,7 +48,8 @@ Advvertismentlist
         <div>
             <h3><a href="{% url 'adv-detail' pk=adv.pk %}">{{ adv.title }}</a></h3>
         </div>
-        {% if image %}
+
+        {% if adv.image %}
 
             <img src="{{ adv.image.url }}">
         {% endif %}
