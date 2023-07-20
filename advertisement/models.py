@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 
+from locations.models import Location
 User = get_user_model()
 
 class Category(models.Model):
@@ -15,9 +16,9 @@ class Advertisement(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'), related_name='advertisements',)
     description = models.TextField(blank=True, verbose_name=_('description'))
     price = models.PositiveIntegerField(default=0, verbose_name=_('description'))
-    # location = models.ForeignKey(
-    #     Location, on_delete=models.CASCADE, related_name='advertisements', verbose_name=_('location')
-    # )
+    location = models.ForeignKey(
+        Location, on_delete=models.CASCADE, related_name='advertisements', verbose_name=_('location')
+    )
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="advertisements", verbose_name=_('category')
     )
