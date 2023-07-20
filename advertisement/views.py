@@ -34,8 +34,9 @@ class AdvertisementDetailView(DetailView):
     template_name = 'advertisement/advertisement_detail.html'
     context_object_name = 'advertisement'
     
-    def get_queryset(self):
-        return Advertisement.objects.get(pk=self.kwargs['pk'])
+    # def get_queryset(self):
+    #     pk = self.kwargs['pk']
+    #     return Advertisement.objects.get(pk=1)
 
     
 class AdvertisementCityListFilter(FilterSet):

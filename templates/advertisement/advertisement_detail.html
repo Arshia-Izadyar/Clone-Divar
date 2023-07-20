@@ -1,0 +1,17 @@
+{% extends 'Base.html' %}
+{% block title %}
+Advertisements detail
+{% endblock title %}
+{% block body %}
+
+    <h1>lol</h1>
+    <h2>{{ advertisement.title }}</h2>
+    <h4>{{ advertisement.description }}</h4>
+    <p>price : {{ advertisement.price }}</p>
+    <p>location : {{ advertisement.location.city }}</p>
+    <p>category: {{ advertisement.category }}</p>
+    <p>contact : {{ advertisement.user.phone_number }}</p>
+
+    <img src="{{ advertisement.image.url }}">
+
+{% endblock %}
