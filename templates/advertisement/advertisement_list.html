@@ -12,7 +12,7 @@ Advvertismentlist
             {% if cat.parent is None %}
 
                 {% if city is None %}
-                    <li><a href="#"> {{ cat.title }} </a></li>
+                    <li><a href=""> {{ cat.title }} </a></li>
                 {% else %}
                     <li><a href="#"> {{ cat.title }} </a></li>
                 {% endif %}
@@ -45,8 +45,7 @@ Advvertismentlist
     {% for adv in advertisements %}
 
         <div>
-            <h3>{{ adv.title }}</h3>
-            {% comment %} <h3><a href="{{ adv.get_absolute_url }}">{{ adv.title }}</a></h3> {% endcomment %}
+            <h3><a href="{% url 'adv-detail' pk=adv.pk %}">{{ adv.title }}</a></h3>
         </div>
 
         <img src="{{ adv.image.url }}">

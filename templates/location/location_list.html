@@ -5,5 +5,8 @@ City List
 {% endblock title %}
 
 {% block body %}
-<h1>{{locations}}</h1>
+{% for city in locations %}
+<h3> <a href="{% url 'adv-list' city.city.slug %}"> City: {{ city.city.name }} Province: {{ city.province.name }} </a></h3> 
+
+{% endfor %}
 {% endblock body %}

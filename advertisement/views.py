@@ -33,13 +33,9 @@ class AdvertisementDetailView(DetailView):
     model = Advertisement
     template_name = 'advertisement/advertisement_detail.html'
     context_object_name = 'advertisement'
-    
-    # def get_queryset(self):
-    #     pk = self.kwargs['pk']
-    #     return Advertisement.objects.get(pk=1)
 
     
-class AdvertisementCityListFilter(FilterSet):
+class AdvertisementListFilter(FilterSet):
     class Meta:
         model = Advertisement
         fields = {"title": ["contains"], "urgent": ["exact"]}
@@ -47,12 +43,14 @@ class AdvertisementCityListFilter(FilterSet):
 class AdvertisementCityListView(FilterView):
     context_object_name = "advertisements"
     template_name = 'advertisement/advertisement_list.html'
-    filterset_class = AdvertisementCityListFilter
+    filterset_class = AdvertisementListFilter
     paginate_by = 10
     
     
     def get_queryset(self):
         city = self.kwargs.get('city')
+        if not city:
+            city = self.request.COOKIES.get('selected_city')
         return Advertisement.objects.filter(location__city__slug=city)
     
     def get_context_data(self, **kwargs):
@@ -61,15 +59,8 @@ class AdvertisementCityListView(FilterView):
         return context
     
         
-        
-        
-    
 
 # class AdvertisementCityCategoryListView(View):
-#     """
-#     Get advertisement by cities 🏙 and categories 🔠 from Advertisement model
-#     """
-
 #     def get(self, request, *args, **kwargs):
 #         city = self.kwargs.get('city')
 #         category = self.kwargs.get('category')
@@ -85,7 +76,22 @@ class AdvertisementCityListView(FilterView):
 #         form = self.request.AdvertisementFilter(self.request.GET)
 #         if form.is_valid():
 #             return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
-
+class AdvertisementCityCategoryListView(FilterView):
+    context_object_name = "advertisements"
+    template_name = 'advertisement/advertisement_list.html'
+    filterset_class = AdvertisementListFilter
+    paginate_by = 10
+    
+    def get_queryset(self):
+        city = self.kwargs.get('city')
+        category = self.kwargs.get('category')
+        Advertisement.objects.filter(location__city__slug=city, category__slug=category)
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = Category.objects.all()
+        return context
+    
 
 # # A decorator that caches 🔂 the page for 3 minutes.
 # @method_decorator(cache_page(60 * 3), name='dispatch')
