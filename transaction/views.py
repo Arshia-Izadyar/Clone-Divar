@@ -25,3 +25,19 @@ class TransactionView(LoginRequiredMixin, View):
             return render(request, self.template_name, {"transaction": t, "package": package})
         else:
             raise Http404
+
+
+class PaymentGateWay(LoginRequiredMixin, View):
+    # i know we should use an abstraction level between low-level features and high-level features
+    # but this is not the case for now
+    # this isn't a real payment gate way ( i don't have one ) (its hard to get and zarinpaal sandbox is not working. i tried to)
+    template_name = "transaction/confirm_transaction.html"
+
+    def post(self, request, invoice_id, *args, **kwargs):
+        t = Transaction.objects.get(invoice_number=invoice_id)
+        if request.user == t.user:
+            t.status = Transaction.PAID
+            t.save()
+            return render(request, self.template_name, {"transaction": t})
+        else:
+            raise Http404

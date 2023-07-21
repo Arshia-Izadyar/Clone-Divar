@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 
 from .managers import CustomUserManager
 
+# ✨ 🍰 ✨
 
 class User(AbstractUser):
     CONSUMER = 1

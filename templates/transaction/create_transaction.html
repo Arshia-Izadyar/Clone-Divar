@@ -13,6 +13,7 @@ Transaction
     <p><b>Created Date: </b> {{transaction.created_date}}</p>
     <p><b>Status: </b> {{transaction.get_status_display}}</p>
     <p><b>Type: </b> {{transaction.get_type_display}}</p>
+    <p><b>Invoice id: </b> {{transaction.invoice_number}}</p>
     <br>
     <h3> package: </h3>
     <h4>Package : {{ package.title }}</h4>
@@ -21,8 +22,8 @@ Transaction
     <p>days: {{package.days}} </p>
     
 
-    <form method="post" action="#">
+    <form method="post" action="{% url 'transaction-confirm' transaction.invoice_number %}">
         {% csrf_token %}
-        <input type="submit" value="pay">
+        <input type="submit" value="payment gateway">
     </form>
 {% endblock body %}
