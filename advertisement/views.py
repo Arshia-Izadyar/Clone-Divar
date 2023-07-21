@@ -8,9 +8,12 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
+from django.views.decorators.cache import cache_page
+
 
 from .models import Advertisement, Category, BookMark
 from .forms import AdvertisementForm, BookMarkForm
+
 
 
 class AdvertisementPostView(FormView):
@@ -93,6 +96,10 @@ class AdvertisementCityListView(FilterView):
     template_name = "advertisement/advertisement_list.html"
     filterset_class = AdvertisementListFilter
     paginate_by = 10
+    
+    @method_decorator(cache_page(60 * 1))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         city = self.kwargs.get("city")
