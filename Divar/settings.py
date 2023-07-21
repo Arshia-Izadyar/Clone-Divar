@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from .local_cnf import KEY, DB_NAME, DB_USER, DB_PASSWORD, EMAIL_HOST, EMAIL_HOST_PASSWORD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-gc_7o+s12$+-n%**8qc9i*!)upo2mq=&k3d(@=)qvh&-br*r2u"
+SECRET_KEY = KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -95,9 +96,9 @@ AUTH_USER_MODEL = "accounts.User"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "divar",
-        "USER": "arshia",
-        "PASSWORD": "a123",
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PASSWORD,
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
@@ -158,11 +159,17 @@ AUTHENTICATION_BACKENDS = [
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
+
         'APP': {
             'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    },
+    'github': {
+
+        'APP': {
+            'client_id': '',
             'secret': '456',
             'key': ''
         }
@@ -184,14 +191,14 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD= 'email'
 ACCOUNT_FORMS = {"signup": "accounts.forms.MyCustomSignupForm"}
 
 
-DEFAULT_FROM_EMAIL = "arshiaa106@gmail.com"
+DEFAULT_FROM_EMAIL = EMAIL_HOST
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "arshiaa106@gmail.com"
-EMAIL_HOST_PASSWORD = "blzhtrrfkxqptzkv"
+EMAIL_HOST_USER = EMAIL_HOST
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = True
 
 
