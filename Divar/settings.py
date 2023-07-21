@@ -45,16 +45,14 @@ INSTALLED_APPS = [
     "locations.apps.LocationsConfig",
     "package.apps.PackageConfig",
     "transaction.apps.TransactionConfig",
-    
     # 3erd party apps
-    'django.contrib.sites',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     # provider
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.google',
+    "allauth.socialaccount.providers.github",
+    "allauth.socialaccount.providers.google",
 ]
 
 
@@ -150,30 +148,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # all auth
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
-
 
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-
-        'APP': {
-            'client_id': '123',
-            'secret': '456',
-            'key': ''
-        }
-    },
-    'github': {
-
-        'APP': {
-            'client_id': '',
-            'secret': '456',
-            'key': ''
-        }
-    }
+    "google": {"APP": {"client_id": "123", "secret": "456", "key": ""}},
+    "github": {"APP": {"client_id": "", "secret": "456", "key": ""}},
 }
 
 LOGIN_REDIRECT_URL = "/"
@@ -186,7 +169,7 @@ ACCOUNT_USERNAME_BLACKLIST = ["admin", "staff", "user", "null", "nil", "None", "
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/accounts/profile/"
 ACCOUNT_SIGNUP_REDIRECT_URL = "/accounts/profile/"
-ACCOUNT_USER_MODEL_EMAIL_FIELD= 'email'
+ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
 
 ACCOUNT_FORMS = {"signup": "accounts.forms.MyCustomSignupForm"}
 
@@ -206,9 +189,7 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-        "KEY_PREFIX": "cache"
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+        "KEY_PREFIX": "cache",
     }
 }

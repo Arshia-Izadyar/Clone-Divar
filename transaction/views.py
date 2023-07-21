@@ -36,7 +36,6 @@ class PaymentGateWay(LoginRequiredMixin, View):
     template_name = "transaction/confirm_transaction.html"
 
     def post(self, request, invoice_id, *args, **kwargs):
-        
         t = Transaction.objects.get(invoice_number=invoice_id)
         if request.user == t.user:
             t.status = Transaction.PAID
@@ -44,15 +43,12 @@ class PaymentGateWay(LoginRequiredMixin, View):
             return render(request, self.template_name, {"transaction": t})
         else:
             raise Http404
-        
-        
-        
+
 
 class TransactionManageFilter(FilterSet):
     class Meta:
         model = Transaction
         fields = {"type": ["exact"], "status": ["exact"]}
-
 
 
 class AdvertisementCityListView(FilterView):
@@ -64,4 +60,3 @@ class AdvertisementCityListView(FilterView):
     def get_queryset(self):
         user = self.request.user
         return Transaction.objects.filter(user=user)
-

@@ -62,5 +62,3 @@ class BookMark(models.Model):
 
     class Meta:
         unique_together = ["advertisement", "user"]
-
-

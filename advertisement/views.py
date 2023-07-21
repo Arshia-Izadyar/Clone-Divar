@@ -15,7 +15,6 @@ from .models import Advertisement, Category, BookMark
 from .forms import AdvertisementForm, BookMarkForm
 
 
-
 class AdvertisementPostView(FormView):
     form_class = AdvertisementForm
     template_name = "advertisement/advertisement_post.html"
@@ -96,7 +95,7 @@ class AdvertisementCityListView(FilterView):
     template_name = "advertisement/advertisement_list.html"
     filterset_class = AdvertisementListFilter
     paginate_by = 10
-    
+
     @method_decorator(cache_page(60 * 1))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -145,8 +144,6 @@ class AddToBookMark(DetailView):
             book_mark.advertisement = obj
             book_mark.save()
         return HttpResponseRedirect(obj.get_absolute_url())
-
-
 
 
 class RemoveFromBookMark(DetailView):

@@ -18,7 +18,6 @@ class CustomUserChangeForm(UserChangeForm):
         fields = UserChangeForm.Meta.fields
 
 
-
 class MyCustomSignupForm(SignupForm):
     phone_number = forms.CharField(
         label=_("Phone Number"),

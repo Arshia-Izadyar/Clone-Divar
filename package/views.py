@@ -23,11 +23,9 @@ class PackageListView(LoginRequiredMixin, ListView):
     template_name = "package/package_list.html"
     queryset = Package.objects.all()
     context_object_name = "packages"
-    
+
     def get_context_data(self, **kwargs):
         context = super(PackageListView, self).get_context_data(**kwargs)
         context["user"] = self.request.user
         context["advertisement_pk"] = self.kwargs["advertisement_pk"]
         return context
-
-

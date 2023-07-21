@@ -7,6 +7,7 @@ from .managers import CustomUserManager
 
 # ✨ 🍰 ✨
 
+
 class User(AbstractUser):
     CONSUMER = 1
     PROVIDER = 2
