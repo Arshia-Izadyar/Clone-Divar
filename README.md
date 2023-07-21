@@ -1,5 +1,7 @@
 # divar
 Divar / Craigslist clone with django 4.2
+
+
 this is a minimal django clone of divar / craigslist site
 
 ## authentication 🔐
