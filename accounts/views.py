@@ -15,13 +15,10 @@ class UserProfile(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         if not hasattr(self, "user_object"):
-            self.user_object = User.objects.prefetch_related("bookmarks", "advertisements").get(
-                pk=self.request.user.pk
-            )
+            self.user_object = User.objects.prefetch_related("bookmarks", "advertisements").get(pk=self.request.user.pk)
 
         context["user"] = self.user_object
         context["bookmarks"] = self.user_object.bookmarks.all()
         context["advertisements"] = self.user_object.advertisements.all()
 
         return context
-

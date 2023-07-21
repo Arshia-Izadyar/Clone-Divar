@@ -3,10 +3,10 @@ from django.utils.translation import gettext as _
 
 
 class Package(models.Model):
-    title = models.CharField(max_length=48, verbose_name=_('package title'))
-    price = models.PositiveBigIntegerField(verbose_name=_('package price'))
-    description = models.TextField(blank=True, verbose_name=_('package description'))
-    days = models.PositiveSmallIntegerField(verbose_name=_('package days'))
+    title = models.CharField(max_length=48, verbose_name=_("package title"))
+    price = models.PositiveBigIntegerField(verbose_name=_("package price"))
+    description = models.TextField(blank=True, verbose_name=_("package description"))
+    days = models.PositiveSmallIntegerField(verbose_name=_("package days"))
     is_enable = models.BooleanField(default=True)
 
     created_time = models.DateTimeField(auto_now_add=True)
@@ -16,5 +16,5 @@ class Package(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = _('package')
-        verbose_name_plural = _('packages')
+        verbose_name = _("package")
+        verbose_name_plural = _("packages")

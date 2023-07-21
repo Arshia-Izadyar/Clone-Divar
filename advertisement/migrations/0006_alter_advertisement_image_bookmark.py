@@ -15,9 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="advertisement",
             name="image",
-            field=models.ImageField(
-                blank=True, null=True, upload_to="images/", verbose_name="Image"
-            ),
+            field=models.ImageField(blank=True, null=True, upload_to="images/", verbose_name="Image"),
         ),
         migrations.CreateModel(
             name="BookMark",
