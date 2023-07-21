@@ -51,7 +51,7 @@ Advvertismentlist
         <div>
             <h3><a href="{% url 'adv-detail' pk=adv.pk %}">{{ adv.title }}</a></h3>
         </div>
-        {% if image %}
+        {% if adv.image %}
 
             <img src="{{ adv.image.url }}">
         {% endif %}
