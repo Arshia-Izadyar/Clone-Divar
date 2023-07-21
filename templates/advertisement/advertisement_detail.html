@@ -14,12 +14,14 @@ Advertisements detail
 
     <img src="{{ advertisement.image.url }}">
 
-    <h3> Book mark</h3>
-    <form method="post" action="{% url 'adv-bookmark' advertisement.pk   %}">
-        {% csrf_token %}
-        <input type="submit" value="bookmark">
-    </form>
-    <br></br>    
+    {% comment %} {% if advertisement.user != request.user %} {% endcomment %}
+        <h3> Book mark</h3>
+        <form method="post" action="{% url 'adv-bookmark' advertisement.pk   %}">
+            {% csrf_token %}
+            <input type="submit" value="bookmark">
+        </form>
+        <br></br>    
+    {% comment %} {% endif %} {% endcomment %}
 
 
     {% if advertisement.user == request.user %}

@@ -29,3 +29,5 @@ class PackageListView(LoginRequiredMixin, ListView):
         context["user"] = self.request.user
         context["advertisement_pk"] = self.kwargs["advertisement_pk"]
         return context
+
+

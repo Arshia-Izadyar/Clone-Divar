@@ -16,17 +16,22 @@ User Profile
 <br>
 
 
-<h3> Book mark</h3>
+<h3> Bookmarked advertisement</h3>
 {% for bookmark in bookmarks %}
 <li>
-    {{bookmark.advertisement}}
+    <p> <b>{{bookmark.advertisement.title}}</b> {{ bookmark.advertisement.urgent}} <a href="{% url 'adv-detail' pk=bookmark.advertisement.pk %}">See the advertisement </a></p> 
+    <form method="post" action="{% url 'adv-remove-bookmark' bookmark.advertisement.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Remove">
+    </form>
 </li>
 {% endfor %}
 
-<h2>Advertisements</h2>
+<h3>Advertisements posted</h3>
 {% for adv in advertisements %}
 
-<p> <strong>{{ adv.title}} :</strong> </p> 
+<p> <strong>Title: {{ adv.title }}: </strong>  Category: {{adv.category}} <a href="{% url 'adv-detail' adv.pk %}">See the advertisement </a></p> 
+
 
 {% endfor %}
 {% endblock body %}

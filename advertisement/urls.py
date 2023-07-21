@@ -7,6 +7,7 @@ from .views import (
     AdvertisementUpdateView,
     AdvertisementDeleteView,
     AddToBookMark,
+    RemoveFromBookMark,
 )
 
 
@@ -18,4 +19,5 @@ urlpatterns = [
     path("update/<int:pk>/", AdvertisementUpdateView.as_view(), name="adv-update"),
     path("delete/<int:pk>/", AdvertisementDeleteView.as_view(), name="adv-delete"),
     path("bookmark/<int:pk>/", AddToBookMark.as_view(), name="adv-bookmark"),
+    path("bookmark/remove/<int:pk>/", RemoveFromBookMark.as_view(), name="adv-remove-bookmark"),
 ]

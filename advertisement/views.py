@@ -8,8 +8,9 @@ from django_filters.views import FilterView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404
 
-from .models import Advertisement, Category
+from .models import Advertisement, Category, BookMark
 from .forms import AdvertisementForm, BookMarkForm
 
 
@@ -137,4 +138,20 @@ class AddToBookMark(DetailView):
             book_mark.user = request.user
             book_mark.advertisement = obj
             book_mark.save()
+        return HttpResponseRedirect(obj.get_absolute_url())
+
+
+
+
+class RemoveFromBookMark(DetailView):
+    model = Advertisement
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        obj = self.get_object()
+        bookmark = get_object_or_404(BookMark, advertisement=obj, user=request.user)
+        bookmark.delete()
         return HttpResponseRedirect(obj.get_absolute_url())
