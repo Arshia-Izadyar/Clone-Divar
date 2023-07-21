@@ -43,7 +43,20 @@ INSTALLED_APPS = [
     "advertisement.apps.AdvertisementConfig",
     "locations.apps.LocationsConfig",
     "package.apps.PackageConfig",
+    
+    # 3erd party apps
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # provider
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
 ]
+
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -131,3 +144,63 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# all auth
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "/"
+ACCOUNT_MAX_EMAIL_ADDRESSES = 1
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+# ACCOUNT_PASSWORD_INPUT_RENDER_VALUE
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "staff", "user", "null", "nil"]
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/accounts/profile/"
+ACCOUNT_SIGNUP_REDIRECT_URL = "/accounts/profile/"
+ACCOUNT_USER_MODEL_EMAIL_FIELD= 'email'
+
+ACCOUNT_FORMS = {"signup": "accounts.forms.MyCustomSignupForm"}
+
+
+DEFAULT_FROM_EMAIL = "arshiaa106@gmail.com"
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "arshiaa106@gmail.com"
+EMAIL_HOST_PASSWORD = "blzhtrrfkxqptzkv"
+EMAIL_USE_TLS = True
+
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient"
+#         },
+#         "KEY_PREFIX": "cache"
+#     }
+# }

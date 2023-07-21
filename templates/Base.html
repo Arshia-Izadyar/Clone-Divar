@@ -13,17 +13,17 @@
 
 <nav class="navbar">
         <ul class="nav-list">
-            <li class="nav-item"><a href="#">Home</a></li>
+            <li class="nav-item"><a href="/">Home</a></li>
 
             {% if user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'profile' %}">profile</a></li>
 
-                <li class="nav-item"><a href="#">Logout</a></li>
+                <li class="nav-item"><a href="{% url 'account_logout' %}">Logout</a></li>
 
 
             {% else %}
-                <li class="nav-item"><a href="#">Login</a></li>
-                <li class="nav-item"><a href="#">Sign Up</a></li>
+                <li class="nav-item"><a href="{% url 'account_login' %}">Login</a></li>
+                <li class="nav-item"><a href="{% url 'account_signup' %}">Sign Up</a></li>
             {% endif %}
 
         </ul>
