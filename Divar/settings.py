@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "advertisement.apps.AdvertisementConfig",
     "locations.apps.LocationsConfig",
     "package.apps.PackageConfig",
+    "transaction.apps.TransactionConfig",
     
     # 3erd party apps
     'django.contrib.sites',

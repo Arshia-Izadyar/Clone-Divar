@@ -1,0 +1,28 @@
+{% extends 'Base.html' %}   
+{% block title %}
+Transaction
+{% endblock title %}
+
+{% block body %}
+<h1>Invoice</h1>
+
+<h2> Deatails </h3>
+    <br>
+    <p><b>Amount: </b> {{transaction.amount}}</p>
+    <p><b>User: </b> {{transaction.user.username}}</p>
+    <p><b>Created Date: </b> {{transaction.created_date}}</p>
+    <p><b>Status: </b> {{transaction.get_status_display}}</p>
+    <p><b>Type: </b> {{transaction.get_type_display}}</p>
+    <br>
+    <h3> package: </h3>
+    <h4>Package : {{ package.title }}</h4>
+    <p>Price: {{package.price}}</p>
+    <p>description: {{package.description}} </p>
+    <p>days: {{package.days}} </p>
+    
+
+    <form method="post" action="#">
+        {% csrf_token %}
+        <input type="submit" value="pay">
+    </form>
+{% endblock body %}

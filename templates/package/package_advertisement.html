@@ -11,6 +11,6 @@ package
     <p>days: {{package.days}} </p>
 
     
-    {% comment %} <a href="{% url 'purchase-create' package.pk advertisement.pk %}">Buy</a> {% endcomment %}
+    <a href="{% url 'transaction-create' package.pk advertisement.pk %}">Buy</a>
 
 {% endblock %}
