@@ -1,0 +1,19 @@
+{% block title %}
+package 
+{% endblock title %}
+
+{% block body %}
+<h1> packages for {{user.username}} </h1>
+
+{% for package in packages %}
+    <h4>Package : {{ package.title }}</h4>
+    <p>Price: {{package.price}}</p>
+    <p>description: {{package.description}} </p>
+    <p>days: {{package.days}} </p>
+    <a href="{% url 'package-detail' package_pk=package.pk advertisement_pk=advertisement_pk %}"> See detail</a>
+{% endfor %}
+
+
+    
+
+{% endblock %}

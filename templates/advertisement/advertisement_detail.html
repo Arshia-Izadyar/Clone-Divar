@@ -19,9 +19,16 @@ Advertisements detail
         {% csrf_token %}
         <input type="submit" value="bookmark">
     </form>
+    <br></br>    
+
 
     {% if advertisement.user == request.user %}
-    <br>    
+    <a href="{% url 'package-list' advertisement.pk %}" >
+        <button>Promote the advertisement</button>
+    </a>
+    <br></br>    
+
+
     <a href="{% url 'adv-update' advertisement.pk %}" >
         <button>Update post</button>
     </a>
@@ -29,6 +36,8 @@ Advertisements detail
     <a href="{% url 'adv-delete' advertisement.pk %}" >
         <button>Delete post</button>
     </a>
+    </br>
+
     {% endif %}
 
 {% endblock %}
