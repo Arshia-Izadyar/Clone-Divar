@@ -1,9 +1,8 @@
-from typing import Any
 from django.views.generic import FormView, DetailView, UpdateView, DeleteView
 from django.db.models import Q
-from django_filters import FilterSet
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
+from django_filters import FilterSet
 from django_filters.views import FilterView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required

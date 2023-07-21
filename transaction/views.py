@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
+from django_filters import FilterSet
+from django_filters.views import FilterView
 
 from .models import Transaction
 from package.models import Package
@@ -43,3 +45,23 @@ class PaymentGateWay(LoginRequiredMixin, View):
         else:
             raise Http404
         
+        
+        
+
+class TransactionManageFilter(FilterSet):
+    class Meta:
+        model = Transaction
+        fields = {"type": ["exact"], "status": ["exact"]}
+
+
+
+class AdvertisementCityListView(FilterView):
+    context_object_name = "transactions"
+    template_name = "transaction/manage_transactions.html"
+    filterset_class = TransactionManageFilter
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = self.request.user
+        return Transaction.objects.filter(user=user)
+

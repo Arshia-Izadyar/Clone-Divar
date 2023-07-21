@@ -33,5 +33,8 @@ User Profile
 <p> <strong>Title: {{ adv.title }}: </strong>  Category: {{adv.category}} <a href="{% url 'adv-detail' adv.pk %}">See the advertisement </a></p> 
 
 {% endfor %}
-
+<h4>Manage Transactions </h3>
+    <a href="{% url 'transaction-manage'  %}" >
+        <button>Manage Transactions</button>
+    </a>
 {% endblock body %}
