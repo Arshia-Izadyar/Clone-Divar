@@ -34,6 +34,7 @@ class PaymentGateWay(LoginRequiredMixin, View):
     template_name = "transaction/confirm_transaction.html"
 
     def post(self, request, invoice_id, *args, **kwargs):
+        
         t = Transaction.objects.get(invoice_number=invoice_id)
         if request.user == t.user:
             t.status = Transaction.PAID
@@ -41,3 +42,4 @@ class PaymentGateWay(LoginRequiredMixin, View):
             return render(request, self.template_name, {"transaction": t})
         else:
             raise Http404
+        

@@ -26,7 +26,7 @@ class Transaction(models.Model):
     )
     amount = models.DecimalField(verbose_name=_("Amount"), max_digits=11, decimal_places=2)
     type = models.PositiveSmallIntegerField(verbose_name=_("Type"), choices=transaction_type, default=PURCHASE)
-    status = models.PositiveSmallIntegerField(verbose_name=_("Status"), choices=transaction_status, default=NOT_PAID)
+    status = models.SmallIntegerField(verbose_name=_("Status"), choices=transaction_status, default=NOT_PAID)
     created_date = models.DateTimeField(_("Created Date"), auto_now_add=True)
     invoice_number = models.UUIDField(_("Invoice number"), max_length=140, default=uuid.uuid4)
     package = models.ForeignKey(

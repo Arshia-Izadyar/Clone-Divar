@@ -6,6 +6,9 @@ Payment confirm
 {% block body %}
 
 <h2> Deatails </h3>
+    {% if error %}
+    <h3> {{ error }}</h3>
+    {% else %}
     <br>
     <p><b>Amount: </b> {{transaction.amount}}</p>
     <p><b>User: </b> {{transaction.user.username}}</p>
@@ -16,7 +19,7 @@ Payment confirm
     <br>
 <p>  i dont have payment gateway. so we skip the payment in gateway //<br>
      we assume that the program claimed th transaction from gateway </p>
-
+    {% endif %}
 <a href="{% url 'profile' %}"> Back to profile</a>
 
 {% endblock body %}

@@ -11,8 +11,9 @@ Advertisements detail
     <p>location : {{ advertisement.location.city }}</p>
     <p>category: {{ advertisement.category }}</p>
     <p>contact : {{ advertisement.user.phone_number }}</p>
-
+    {% if advertisement.image %}
     <img src="{{ advertisement.image.url }}">
+    {% endif %}
 
     {% comment %} {% if advertisement.user != request.user %} {% endcomment %}
         <h3> Book mark</h3>
